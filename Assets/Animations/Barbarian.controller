@@ -227,7 +227,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Hit
+    m_Name: Hit Layer
     m_StateMachine: {fileID: 4427527582095454432}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -239,7 +239,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Die
+    m_Name: Die Layer
     m_StateMachine: {fileID: 8899507272993743654}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -251,17 +251,17 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Injured
+    m_Name: Injured Layer
     m_StateMachine: {fileID: 1682393311547017635}
     m_Mask: {fileID: 0}
     m_Motions:
     - serializedVersion: 2
       m_State: {fileID: -329880417355924343}
-      m_Motion: {fileID: -203655887218126122, guid: f1f3c991c94e21f498a5cb9bf38b83bb,
+      m_Motion: {fileID: -203655887218126122, guid: dc3632b307310724684ca72355ab4640,
         type: 3}
     - serializedVersion: 2
       m_State: {fileID: -6694538277646733732}
-      m_Motion: {fileID: -203655887218126122, guid: c7977ea47f47b074d8561e516fe7dc6e,
+      m_Motion: {fileID: -203655887218126122, guid: 597267abbcdefe243b82d6327dae8fac,
         type: 3}
     m_Behaviours: []
     m_BlendingMode: 0
@@ -277,7 +277,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Injured
+  m_Name: Injured Layer
   m_ChildStates: []
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
@@ -296,7 +296,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit
+  m_Name: Hit Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -3842986482012344106}
@@ -497,7 +497,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Die
+  m_Name: Die Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 5394470299850503482}

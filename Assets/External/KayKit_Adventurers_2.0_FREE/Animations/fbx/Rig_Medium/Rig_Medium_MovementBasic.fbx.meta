@@ -580,13 +580,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Rig_Medium_MovementBasic(Clone)
+    - name: Rig_Medium_General(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Rig_Medium
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -706,32 +706,32 @@ ModelImporter:
       rotation: {x: -0.000000022296472, y: 0.9203549, z: -0.39108422, w: -0.00000013520682}
       scale: {x: 1, y: 0.9999976, z: 1.0000035}
     - name: Mannequin_Head
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 1.2158737, z: -0.00000013709068}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mannequin_ArmLeft
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mannequin_ArmRight
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mannequin_LegLeft
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mannequin_LegRight
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mannequin_Body
-      parentName: Rig_Medium_MovementBasic(Clone)
+      parentName: Rig_Medium_General(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -747,11 +747,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: a173494d35c9ca14984a5095acbf9060,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

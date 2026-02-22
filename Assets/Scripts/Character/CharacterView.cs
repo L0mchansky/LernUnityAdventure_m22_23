@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace LernUnityAdventure_m22_23
@@ -7,6 +8,7 @@ namespace LernUnityAdventure_m22_23
         private readonly int IsWalkingKey = Animator.StringToHash("IsWalking");
         private readonly int TakeDamageKey = Animator.StringToHash("TakeDamage");
         private readonly int DieKey = Animator.StringToHash("Die");
+        private readonly String InjuredLayerName = "Injured Layer";
 
         [SerializeField] private Character _character;
         private Animator _animator;
@@ -41,6 +43,12 @@ namespace LernUnityAdventure_m22_23
         public void TakeDamage()
         {
             _animator.SetTrigger(TakeDamageKey);
+        }
+
+        public void Injured()
+        {
+            int injuredLayerIndex = _animator.GetLayerIndex(InjuredLayerName);
+            _animator.SetLayerWeight(injuredLayerIndex, 1);
         }
 
         public void Die() {

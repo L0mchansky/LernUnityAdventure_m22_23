@@ -16,6 +16,8 @@ namespace LernUnityAdventure_m22_23
 
             characterView.TakeDamage();
 
+            if (health.ProcentageHealth <= 30) characterView.Injured();
+
             if (health.IsLife == false) characterView.Die();
         }
     }
