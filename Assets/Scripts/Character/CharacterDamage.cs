@@ -1,24 +1,31 @@
-﻿using System;
 using UnityEngine;
 
 namespace LernUnityAdventure_m22_23
 {
     public class CharacterDamage : MonoBehaviour, IDamage
     {
+        private const float InjuredHealthPercentThreshold = 30f;
+
         public void TakeDamage(float damage, ComponentHealth health)
         {
-            float newHeatlh = health.CurrentHealth - damage;
-            health.SetHealth(newHeatlh);
+            float newHealth = health.CurrentHealth - damage;
+            health.SetHealth(newHealth);
 
             CharacterView characterView = GetComponentInChildren<CharacterView>();
 
             if (characterView == null) return;
 
-            characterView.TakeDamage();
+            characterView.PlayTakeDamage();
 
-            if (health.ProcentageHealth <= 30) characterView.Injured();
+            if (health.PercentageHealth <= InjuredHealthPercentThreshold)
+            {
+                characterView.PlayInjured();
+            }
 
-            if (health.IsLife == false) characterView.Die();
+            if (health.IsLife == false)
+            {
+                characterView.PlayDie();
+            }
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
 using UnityEngine;
 
 namespace LernUnityAdventure_m22_23
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class DelayedExplosion: MonoBehaviour
+    public class DelayedExplosion : MonoBehaviour
     {
         [SerializeField] private float _damage;
         [SerializeField] private float _force;
@@ -13,15 +12,15 @@ namespace LernUnityAdventure_m22_23
         [SerializeField] private float _countdownToExplosion;
         [SerializeField] private GameObject _particlePrefab;
 
-        private const float RATIO_SPEED_TO_TIME = 10f;
+        private const float RatioSpeedToTime = 10f;
+        private const float TimeExpiredThreshold = 0f;
 
         private float _currentTimeToExplosion;
-
-        private bool _isExplodes = false;
+        private bool _isExploding = false;
 
         public void Awake()
         {
-            if(TryGetComponent(out SphereCollider collider))
+            if (TryGetComponent(out SphereCollider collider))
             {
                 collider.radius = _radiusActivation;
             }
@@ -29,28 +28,28 @@ namespace LernUnityAdventure_m22_23
 
         public void Update()
         {
-            if (_isExplodes == false) return;
+            if (_isExploding == false) return;
 
             _currentTimeToExplosion -= Time.deltaTime;
 
-            if (_currentTimeToExplosion <= 0)
+            if (_currentTimeToExplosion <= TimeExpiredThreshold)
             {
-                VFXExplose();
-                Explose();
-                _isExplodes = false;
+                PlayExplosionVfx();
+                Explode();
+                _isExploding = false;
                 Destroy(gameObject);
-            } 
+            }
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
-            if (_isExplodes) return;
+            if (_isExploding) return;
 
-            _isExplodes = true;
+            _isExploding = true;
             _currentTimeToExplosion = _countdownToExplosion;
         }
 
-        private void OnDrawGizmos()
+        public void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _radiusExplosion);
@@ -59,10 +58,9 @@ namespace LernUnityAdventure_m22_23
             Gizmos.DrawWireSphere(transform.position, _radiusActivation);
         }
 
-        private void Explose()
+        private void Explode()
         {
             Collider[] targets = Physics.OverlapSphere(transform.position, _radiusExplosion);
-
             ExplosionData data = new ExplosionData(transform.position, _force, _radiusExplosion, _damage);
 
             foreach (Collider target in targets)
@@ -74,13 +72,13 @@ namespace LernUnityAdventure_m22_23
             }
         }
 
-        private void VFXExplose()
+        private void PlayExplosionVfx()
         {
             GameObject particleSystemObj = Instantiate(_particlePrefab, transform.position, Quaternion.identity);
             ParticleSystem particleSystem = particleSystemObj.GetComponent<ParticleSystem>();
 
-            float lifeTime = Mathf.Sqrt(_radiusExplosion / RATIO_SPEED_TO_TIME);
-            float speed = Mathf.Sqrt(_radiusExplosion * RATIO_SPEED_TO_TIME);
+            float lifeTime = Mathf.Sqrt(_radiusExplosion / RatioSpeedToTime);
+            float speed = Mathf.Sqrt(_radiusExplosion * RatioSpeedToTime);
 
             particleSystem.startLifetime = lifeTime;
             particleSystem.startSpeed = speed;

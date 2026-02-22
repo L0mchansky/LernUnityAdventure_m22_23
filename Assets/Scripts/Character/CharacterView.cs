@@ -1,16 +1,18 @@
-using System;
 using UnityEngine;
 
 namespace LernUnityAdventure_m22_23
 {
     public class CharacterView : MonoBehaviour
     {
-        private readonly int IsWalkingKey = Animator.StringToHash("IsWalking");
-        private readonly int TakeDamageKey = Animator.StringToHash("TakeDamage");
-        private readonly int DieKey = Animator.StringToHash("Die");
-        private readonly String InjuredLayerName = "Injured Layer";
+        private static readonly int _isWalkingKey = Animator.StringToHash("IsWalking");
+        private static readonly int _takeDamageKey = Animator.StringToHash("TakeDamage");
+        private static readonly int _dieKey = Animator.StringToHash("Die");
+        private static readonly string _injuredLayerName = "Injured Layer";
+
+        private const float VelocityMagnitudeThreshold = 0.05f;
 
         [SerializeField] private Character _character;
+
         private Animator _animator;
 
         public void Awake()
@@ -20,7 +22,7 @@ namespace LernUnityAdventure_m22_23
 
         public void Update()
         {
-            if (_character.CurrentVelosity.magnitude >= 0.05f)
+            if (_character.CurrentVelocity.magnitude >= VelocityMagnitudeThreshold)
             {
                 StartWalking();
             }
@@ -32,27 +34,28 @@ namespace LernUnityAdventure_m22_23
 
         private void StopWalking()
         {
-           _animator.SetBool(IsWalkingKey, false);
+            _animator.SetBool(_isWalkingKey, false);
         }
 
         private void StartWalking()
         {
-            _animator.SetBool(IsWalkingKey, true);
+            _animator.SetBool(_isWalkingKey, true);
         }
 
-        public void TakeDamage()
+        public void PlayTakeDamage()
         {
-            _animator.SetTrigger(TakeDamageKey);
+            _animator.SetTrigger(_takeDamageKey);
         }
 
-        public void Injured()
+        public void PlayInjured()
         {
-            int injuredLayerIndex = _animator.GetLayerIndex(InjuredLayerName);
+            int injuredLayerIndex = _animator.GetLayerIndex(_injuredLayerName);
             _animator.SetLayerWeight(injuredLayerIndex, 1);
         }
 
-        public void Die() {
-            _animator.SetTrigger(DieKey);
+        public void PlayDie()
+        {
+            _animator.SetTrigger(_dieKey);
         }
     }
 }
