@@ -10,13 +10,17 @@ namespace LernUnityAdventure_m22_23
         [SerializeField] private float _radiusExplosion;
         [SerializeField] private float _radiusActivation;
         [SerializeField] private float _countdownToExplosion;
-        [SerializeField] private GameObject _particlePrefab;
 
-        private const float RatioSpeedToTime = 10f;
         private const float TimeExpiredThreshold = 0f;
 
-        private float _currentTimeToExplosion;
         private bool _isExploding = false;
+        private bool _isExploded = false;
+        private bool _hasVfxPlayed = false;
+
+        public float RadiusExplosion => _radiusExplosion;
+        public bool IsExploded => _isExploded;
+
+        public void SetVfxPlayed() => _hasVfxPlayed = true;
 
         public void Awake()
         {
@@ -28,14 +32,19 @@ namespace LernUnityAdventure_m22_23
 
         public void Update()
         {
-            if (_isExploding == false) return;
-
-            _currentTimeToExplosion -= Time.deltaTime;
-
-            if (_currentTimeToExplosion <= TimeExpiredThreshold)
+            if (_isExploding == true)
             {
-                PlayExplosionVfx();
+                _countdownToExplosion -= Time.deltaTime;
+            }
+
+            if (_isExploded == false && _countdownToExplosion <= TimeExpiredThreshold)
+            {
+                _isExploded = true;
                 Explode();
+            }
+
+            if (_hasVfxPlayed == true)
+            {
                 _isExploding = false;
                 Destroy(gameObject);
             }
@@ -46,7 +55,6 @@ namespace LernUnityAdventure_m22_23
             if (_isExploding) return;
 
             _isExploding = true;
-            _currentTimeToExplosion = _countdownToExplosion;
         }
 
         public void OnDrawGizmos()
@@ -70,20 +78,6 @@ namespace LernUnityAdventure_m22_23
 
                 explodable.OnExplode(data, target);
             }
-        }
-
-        private void PlayExplosionVfx()
-        {
-            GameObject particleSystemObj = Instantiate(_particlePrefab, transform.position, Quaternion.identity);
-            ParticleSystem particleSystem = particleSystemObj.GetComponent<ParticleSystem>();
-
-            float lifeTime = Mathf.Sqrt(_radiusExplosion / RatioSpeedToTime);
-            float speed = Mathf.Sqrt(_radiusExplosion * RatioSpeedToTime);
-
-            particleSystem.startLifetime = lifeTime;
-            particleSystem.startSpeed = speed;
-
-            particleSystemObj.SetActive(true);
         }
     }
 }
