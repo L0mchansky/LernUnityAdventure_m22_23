@@ -9,15 +9,20 @@ namespace LernUnityAdventure_m22_23
         private static readonly int _dieKey = Animator.StringToHash("Die");
         private static readonly string _injuredLayerName = "Injured Layer";
 
+        private const float InjuredHealthPercentThreshold = 30f;
         private const float VelocityMagnitudeThreshold = 0.05f;
 
         [SerializeField] private Character _character;
 
         private Animator _animator;
+        private ComponentHealth _health;
+        private bool _isPlayedInjure = false;
+        private bool _isPlayedDie = false;
 
         public void Awake()
         {
             _animator = GetComponent<Animator>();
+            _health = _character.Health;
         }
 
         public void Update()
@@ -29,6 +34,16 @@ namespace LernUnityAdventure_m22_23
             else
             {
                 StopWalking();
+            }
+
+            if (_isPlayedInjure == false && _health.PercentageHealth <= InjuredHealthPercentThreshold)
+            {
+                PlayInjured();
+            }
+
+            if (_isPlayedDie == false && _health.IsLife == false)
+            {
+                PlayDie();
             }
         }
 
@@ -49,12 +64,14 @@ namespace LernUnityAdventure_m22_23
 
         public void PlayInjured()
         {
+            _isPlayedInjure = true;
             int injuredLayerIndex = _animator.GetLayerIndex(_injuredLayerName);
             _animator.SetLayerWeight(injuredLayerIndex, 1);
         }
 
         public void PlayDie()
         {
+            _isPlayedDie = true;
             _animator.SetTrigger(_dieKey);
         }
     }

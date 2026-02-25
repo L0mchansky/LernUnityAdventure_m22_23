@@ -3,9 +3,10 @@ using UnityEngine.AI;
 
 namespace LernUnityAdventure_m22_23
 {
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamageable, IExplodable
     {
         [SerializeField] private float _maxHealth;
+        [SerializeField] private CharacterView _characterView;
 
         private NavMeshAgent _agent;
         private ComponentHealth _health;
@@ -23,6 +24,19 @@ namespace LernUnityAdventure_m22_23
         public bool SetDestination(Vector3 targetPoint)
         {
             return _agent.SetDestination(targetPoint);
+        }
+
+        public void TakeDamage(float damage, ComponentHealth health)
+        {
+            float newHealth = health.CurrentHealth - damage;
+            health.SetHealth(newHealth);
+
+            _characterView.PlayTakeDamage();
+        }
+
+        public void OnExplode(ExplosionData data, Collider collider)
+        {
+            TakeDamage(data.Damage, _health);
         }
     }
 }
