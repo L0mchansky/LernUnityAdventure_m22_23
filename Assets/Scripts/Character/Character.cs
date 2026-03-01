@@ -9,39 +9,36 @@ namespace LernUnityAdventure_m22_23
         [SerializeField] private float _maxHealth;
         [SerializeField] private CharacterView _characterView;
 
-        private const float VelocityMagnitudeThreshold = 0.05f;
-
-        private NavMeshAgent _agent;
         private ComponentHealth _health;
         private bool _isWalking;
+        private Vector3 _destination;
+        private Vector3 _velocity;
+        private const float VelocityMagnitudeThreshold = 0.05f;
 
-        public Vector3 CurrentVelocity => _agent.velocity;
         public ComponentHealth Health => _health;
         public bool IsLife => _health.IsLife;
         public bool IsWalking => _isWalking;
-        public Vector3 GetDestination() => _agent.destination;
+        public Vector3 Destination => _destination;
+        public Vector3 Velocity => _velocity;
 
         public void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
             _health = new ComponentHealth(_maxHealth);
         }
 
         public void Update()
         {
-            if (CurrentVelocity.magnitude >= VelocityMagnitudeThreshold)
-            {
-                _isWalking = true;
-            }
-            else
-            {
-                _isWalking = false;
-            }
+            OnWalking();
         }
 
-        public bool SetDestination(Vector3 targetPoint)
+        public void SetDestination(Vector3 value)
         {
-            return _agent.SetDestination(targetPoint);
+            _destination = value;
+        }
+
+        public void SetVelocity(Vector3 value)
+        {
+            _velocity = value;
         }
 
         public void TakeDamage(float damage, ComponentHealth health)
@@ -55,6 +52,17 @@ namespace LernUnityAdventure_m22_23
         public void OnExplode(ExplosionData data, Collider collider)
         {
             TakeDamage(data.Damage, _health);
+        }
+        private void OnWalking()
+        {
+            if (_velocity.magnitude >= VelocityMagnitudeThreshold)
+            {
+                _isWalking = true;
+            }
+            else
+            {
+                _isWalking = false;
+            }
         }
     }
 }

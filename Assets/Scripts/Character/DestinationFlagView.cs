@@ -11,9 +11,9 @@ namespace LernUnityAdventure_m22_23
 
         public void Update()
         {
-            Vector3 destination = _character.GetDestination();
+            Vector3 destination = _character.Destination;
 
-            if (destination != null && NierToFlag(destination) == false)
+            if (destination != null && CheckNierToFlag(destination) == false)
             {
                 SetDestinationFlag(destination);
             } 
@@ -21,7 +21,6 @@ namespace LernUnityAdventure_m22_23
             {
                 _flagView.SetActive(false);
             }
-
         }
 
         public void SetDestinationFlag(Vector3 destination)
@@ -31,7 +30,7 @@ namespace LernUnityAdventure_m22_23
             _flagView.SetActive(true);
         }
 
-        public bool NierToFlag(Vector3 point)
+        public bool CheckNierToFlag(Vector3 point)
         {
             float distanceToFlag = (_character.transform.position - point).magnitude;
 

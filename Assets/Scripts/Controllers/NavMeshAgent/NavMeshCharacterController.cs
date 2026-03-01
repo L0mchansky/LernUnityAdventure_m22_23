@@ -2,24 +2,33 @@
 
 namespace LernUnityAdventure_m22_23
 {
-    public class NavmeshCharterController : Controller
+    public class NavMeshCharacterController : NavMeshAgentController
     {
         private const string LayerMaskName = "WalkGround";
-        private LayerMask _layerMaskGround;
-
         private const int MoveMouseButton = 1;
-        private Character _character;
-        private Game _game;
 
-        public NavmeshCharterController(Character character, Game game)
+        private readonly LayerMask _layerMaskGround;
+        private readonly Character _character;
+        private readonly Game _game;
+
+        public NavMeshCharacterController(Character character, Game game, float speed, float angularSpeed, float acceleration)
         {
+            AddNavMeshAgentComponent(character);
             _layerMaskGround = LayerMask.GetMask(LayerMaskName);
             _character = character;
             _game = game;
+
+            _agent.speed = speed;
+            _agent.angularSpeed = angularSpeed;
+            _agent.acceleration = acceleration;
+
+            SetDestination(_character, _character.transform.position);
         }
 
         protected override void UpdateLogic(float deltatime)
         {
+            SetVelocity(_character);
+
             if (Input.GetMouseButtonDown(MoveMouseButton))
             {
                 if (_character.IsLife == false) return;
@@ -28,7 +37,7 @@ namespace LernUnityAdventure_m22_23
 
                 if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMaskGround))
                 {
-                    _character.SetDestination(hit.point);
+                    SetDestination(_character, hit.point);
                 }
             }
         }
