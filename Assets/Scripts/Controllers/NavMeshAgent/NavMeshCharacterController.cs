@@ -13,14 +13,11 @@ namespace LernUnityAdventure_m22_23
 
         public NavMeshCharacterController(Character character, Game game, float speed, float angularSpeed, float acceleration)
         {
-            AddNavMeshAgentComponent(character);
+            AddNavMeshAgentComponent(character, speed, angularSpeed, acceleration);
+
             _layerMaskGround = LayerMask.GetMask(LayerMaskName);
             _character = character;
             _game = game;
-
-            _agent.speed = speed;
-            _agent.angularSpeed = angularSpeed;
-            _agent.acceleration = acceleration;
 
             SetDestination(_character, _character.transform.position);
         }

@@ -6001,9 +6001,10 @@ MonoBehaviour:
   _speed: 5
   _angularSpeed: 500
   _acceleration: 500
-  _patrolRadius: 5
+  _patrolRadius: 10
+  _retryDelayAfterFail: 1
+  _idleTimeToPatrol: 3
   _arrivalThreshold: 5
-  _retryDelayAfterFail: 5
 --- !u!1001 &1229029194
 PrefabInstance:
   m_ObjectHideFlags: 0

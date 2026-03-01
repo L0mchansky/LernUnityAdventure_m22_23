@@ -13,35 +13,23 @@ namespace LernUnityAdventure_m22_23
         {
             Vector3 destination = _character.Destination;
 
-            if (destination != null && CheckNierToFlag(destination) == false)
+            float distance = Vector3.Distance(_character.transform.position, destination);
+
+            if (distance >= RangeToDeactivateFlag)
             {
                 SetDestinationFlag(destination);
-            } 
+            }
             else
             {
                 _flagView.SetActive(false);
             }
         }
 
-        public void SetDestinationFlag(Vector3 destination)
+        private void SetDestinationFlag(Vector3 destination)
         {
             Vector3 flagPosition = new Vector3(destination.x, transform.position.y, destination.z);
             transform.position = flagPosition;
             _flagView.SetActive(true);
-        }
-
-        public bool CheckNierToFlag(Vector3 point)
-        {
-            float distanceToFlag = (_character.transform.position - point).magnitude;
-
-            if (distanceToFlag <= RangeToDeactivateFlag)
-            {
-                return true;
-            } 
-            else
-            {
-                return false;
-            }
         }
     }
 }

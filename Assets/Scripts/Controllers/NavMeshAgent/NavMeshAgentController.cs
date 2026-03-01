@@ -7,9 +7,18 @@ namespace LernUnityAdventure_m22_23
     {
         protected NavMeshAgent _agent;
 
-        public void AddNavMeshAgentComponent(Character character)
+        public void AddNavMeshAgentComponent(Character character, float speed, float angularSpeed, float acceleration)
         {
+            if (character.gameObject.TryGetComponent(out NavMeshAgent agent))
+            {
+                _agent = agent;
+                return;
+            }
+
             _agent = character.gameObject.AddComponent<NavMeshAgent>();
+            _agent.speed = speed;
+            _agent.angularSpeed = angularSpeed;
+            _agent.acceleration = acceleration;
         }
 
         public Vector3 GetDestination() => _agent.destination;
