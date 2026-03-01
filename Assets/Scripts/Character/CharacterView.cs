@@ -10,7 +10,7 @@ namespace LernUnityAdventure_m22_23
         private static readonly string _injuredLayerName = "Injured Layer";
 
         private const float InjuredHealthPercentThreshold = 30f;
-        private const float VelocityMagnitudeThreshold = 0.05f;
+
 
         [SerializeField] private Character _character;
 
@@ -27,7 +27,7 @@ namespace LernUnityAdventure_m22_23
 
         public void Update()
         {
-            if (_character.CurrentVelocity.magnitude >= VelocityMagnitudeThreshold)
+            if (_character.IsWalking)
             {
                 StartWalking();
             }
