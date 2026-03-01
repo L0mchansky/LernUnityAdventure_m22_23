@@ -15,14 +15,14 @@ namespace LernUnityAdventure_m22_23
         [SerializeField] private Character _character;
 
         private Animator _animator;
-        private ComponentHealth _health;
+        private ComponentHealth _componentHealth;
         private bool _isPlayedInjure = false;
         private bool _isPlayedDie = false;
 
         public void Awake()
         {
             _animator = GetComponent<Animator>();
-            _health = _character.Health;
+            _componentHealth = _character.ComponentHealth;
         }
 
         public void Update()
@@ -36,12 +36,17 @@ namespace LernUnityAdventure_m22_23
                 StopWalking();
             }
 
-            if (_isPlayedInjure == false && _health.PercentageHealth <= InjuredHealthPercentThreshold)
+            if (_isPlayedInjure == false && _componentHealth.PercentageHealth <= InjuredHealthPercentThreshold)
             {
                 PlayInjured();
             }
 
-            if (_isPlayedDie == false && _health.IsLife == false)
+            if (_isPlayedInjure == true && _componentHealth.PercentageHealth >= InjuredHealthPercentThreshold) 
+            {
+                StopInjured();
+            }
+
+            if (_isPlayedDie == false && _componentHealth.IsLife == false)
             {
                 PlayDie();
             }
@@ -65,8 +70,19 @@ namespace LernUnityAdventure_m22_23
         public void PlayInjured()
         {
             _isPlayedInjure = true;
+            ChangeInjured(1);
+        }
+
+        public void StopInjured()
+        {
+            _isPlayedInjure = false;
+            ChangeInjured(0);
+        }
+
+        private void ChangeInjured(int layerWeight)
+        {
             int injuredLayerIndex = _animator.GetLayerIndex(_injuredLayerName);
-            _animator.SetLayerWeight(injuredLayerIndex, 1);
+            _animator.SetLayerWeight(injuredLayerIndex, layerWeight);
         }
 
         public void PlayDie()

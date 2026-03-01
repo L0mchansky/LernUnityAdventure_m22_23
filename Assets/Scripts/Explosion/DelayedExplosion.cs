@@ -104,7 +104,7 @@ namespace LernUnityAdventure_m22_23
                 if (target.TryGetComponent(out IExplodable explodable) == false)
                     continue;
 
-                explodable.OnExplode(data, target);
+                explodable.OnExplode(data);
             }
 
             _isExploded = true;
