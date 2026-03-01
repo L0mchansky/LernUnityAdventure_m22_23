@@ -6003,7 +6003,7 @@ MonoBehaviour:
   _acceleration: 500
   _patrolRadius: 10
   _retryDelayAfterFail: 1
-  _idleTimeToPatrol: 3
+  _idleTimeToPatrol: 10
   _arrivalThreshold: 5
 --- !u!1001 &1229029194
 PrefabInstance:
@@ -7762,6 +7762,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3512201119594181494, guid: c4066be428fceaa4ea2c6364e3b2864e,
+        type: 3}
+      propertyPath: _triggerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5271102448152669758, guid: c4066be428fceaa4ea2c6364e3b2864e,
         type: 3}
       propertyPath: m_Name
