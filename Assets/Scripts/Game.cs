@@ -1,30 +1,24 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace LernUnityAdventure_m22_23
 {
     public class Game : MonoBehaviour
     {
         [SerializeField] private Character _character;
-        [SerializeField] private LayerMask _layerMaskGround;
+        
+        private NavmeshCharterController _characterController;
 
-        private const int MoveMouseButton = 1;
+        private void Awake()
+        {
+            _characterController = new NavmeshCharterController(_character, this);
+            _characterController.Enable();
+        }
 
         public void Update()
         {
-            if (Input.GetMouseButtonDown(MoveMouseButton))
-            {
-                if (_character.IsLife == false) return;
-
-                Ray ray = GetRayFromScreen();
-
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMaskGround))
-                {
-                    _character.SetDestination(hit.point);
-                }
-            }
+            _characterController.Update(Time.deltaTime);
         }
 
-        private Ray GetRayFromScreen() => Camera.main.ScreenPointToRay(Input.mousePosition);
+        public Ray GetRayFromScreen() => Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 }
